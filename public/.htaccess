@@ -1,6 +1,6 @@
 AuthType Basic
 AuthName "Accès restreint"
-AuthUserFile "/home/cogu8398/.htpasswds/candidatures.cogu8398.odns.fr/passwd"
+AuthUserFile /home/guillay/.htpasswd
 Require valid-user
 
 # Redirection SPA : toute route inconnue renvoie vers index.html
