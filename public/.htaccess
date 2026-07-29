@@ -1,0 +1,10 @@
+AuthType Basic
+AuthName "Accès restreint"
+AuthUserFile "/home/cogu8398/.htpasswds/candidatures.cogu8398.odns.fr/passwd"
+Require valid-user
+
+# Redirection SPA : toute route inconnue renvoie vers index.html
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
