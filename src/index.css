@@ -1,12 +1,13 @@
 /* Palette et variables globales */
 :root {
-  --couleur-fond: #f8fafc;
+  --couleur-fond: #f1f5f9;
   --couleur-surface: #ffffff;
   --couleur-texte: #1e293b;
   --couleur-texte-clair: #64748b;
   --couleur-bordure: #e2e8f0;
   --couleur-primaire: #2563eb;
   --couleur-primaire-hover: #1d4ed8;
+  --couleur-primaire-clair: #3b82f6;
 
   --badge-gris-fond: #f1f5f9;
   --badge-gris-texte: #475569;
@@ -20,6 +21,10 @@
   --badge-vert-texte: #15803d;
   --badge-rouge-fond: #fee2e2;
   --badge-rouge-texte: #b91c1c;
+
+  --ombre-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --ombre-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --ombre-lg: 0 20px 40px rgba(15, 23, 42, 0.18);
 }
 
 * {
@@ -31,21 +36,30 @@ body {
   background: var(--couleur-fond);
   color: var(--couleur-texte);
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 button {
   font: inherit;
   cursor: pointer;
   border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  background: var(--couleur-primaire);
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--couleur-primaire-clair), var(--couleur-primaire));
   color: white;
-  transition: background 0.15s ease;
+  box-shadow: var(--ombre-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 button:hover {
-  background: var(--couleur-primaire-hover);
+  background: linear-gradient(135deg, var(--couleur-primaire), var(--couleur-primaire-hover));
+  box-shadow: var(--ombre-md);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 input,
@@ -53,25 +67,44 @@ select,
 textarea {
   font: inherit;
   border: 1px solid var(--couleur-bordure);
-  border-radius: 6px;
-  padding: 0.5rem;
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
   background: var(--couleur-surface);
   color: var(--couleur-texte);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--couleur-primaire-clair);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 /* En-tête */
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem 2rem;
-  background: var(--couleur-surface);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--couleur-bordure);
 }
 
 .header h1 {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   margin: 0;
+  background: linear-gradient(135deg, var(--couleur-texte), var(--couleur-primaire));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Statistiques */
@@ -85,28 +118,36 @@ textarea {
 .stat-card {
   background: var(--couleur-surface);
   border: 1px solid var(--couleur-bordure);
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 12px;
+  padding: 1.1rem;
   text-align: center;
+  box-shadow: var(--ombre-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: var(--ombre-md);
+  transform: translateY(-2px);
 }
 
 .stat-card__valeur {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 700;
   margin: 0;
+  color: var(--couleur-primaire);
 }
 
 .stat-card__libelle {
   color: var(--couleur-texte-clair);
-  font-size: 0.85rem;
-  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  margin: 0.3rem 0 0;
 }
 
 /* Filtres */
 .filters {
   display: flex;
   gap: 1rem;
-  padding: 0 2rem 1rem;
+  padding: 0 2rem 1.5rem;
 }
 
 .filters input {
@@ -117,15 +158,23 @@ textarea {
 .candidatures-liste {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
   padding: 0 2rem 2rem;
 }
 
 .candidature-card {
   background: var(--couleur-surface);
   border: 1px solid var(--couleur-bordure);
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: var(--ombre-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.candidature-card:hover {
+  box-shadow: var(--ombre-md);
+  transform: translateY(-3px);
+  border-color: var(--couleur-primaire-clair);
 }
 
 .candidature-card__entete {
@@ -137,7 +186,8 @@ textarea {
 
 .candidature-card__entete h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
 }
 
 .candidature-card__poste {
@@ -146,34 +196,49 @@ textarea {
 }
 
 .candidature-card__date {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--couleur-texte-clair);
 }
 
 .candidature-card__actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.1rem;
 }
 
 .candidature-card__actions button {
   background: transparent;
+  background-image: none;
   color: var(--couleur-primaire);
   border: 1px solid var(--couleur-bordure);
+  box-shadow: none;
+  font-weight: 500;
 }
 
 .candidature-card__actions button:hover {
   background: var(--couleur-fond);
+  transform: none;
+  box-shadow: none;
 }
 
 /* Badge de statut */
 .badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .badge--gris {
@@ -208,11 +273,12 @@ textarea {
 
 /* Alerte relances */
 .alerte-relances {
-  margin: 0 2rem 1rem;
-  padding: 1rem;
+  margin: 0 2rem 1.5rem;
+  padding: 1rem 1.25rem;
   background: var(--badge-orange-fond);
   color: var(--badge-orange-texte);
-  border-radius: 8px;
+  border-radius: 12px;
+  border: 1px solid #fde68a;
 }
 
 .alerte-relances p {
@@ -226,6 +292,26 @@ textarea {
 }
 
 /* Overlay commun (modale + confirmation de suppression) */
+@keyframes apparition-overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes apparition-panneau {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .candidature-modal,
 .delete-confirm {
   position: fixed;
@@ -233,21 +319,25 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
   padding: 1rem;
   z-index: 10;
+  animation: apparition-overlay 0.15s ease;
 }
 
 .candidature-modal form,
 .delete-confirm {
   background: var(--couleur-surface);
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: 16px;
+  padding: 1.75rem;
   width: 100%;
   max-width: 480px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  box-shadow: var(--ombre-lg);
+  animation: apparition-panneau 0.2s ease;
 }
 
 .candidature-modal label {
@@ -261,17 +351,30 @@ textarea {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 .candidature-modal__actions button[type='button'],
 .delete-confirm__actions button:first-child {
   background: transparent;
+  background-image: none;
   color: var(--couleur-texte);
   border: 1px solid var(--couleur-bordure);
+  box-shadow: none;
 }
 
 /* Toast */
+@keyframes glissement-toast {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .toast {
   position: fixed;
   bottom: 1.5rem;
@@ -279,11 +382,17 @@ textarea {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  padding: 0.8rem 1.1rem;
+  border-radius: 10px;
   background: var(--couleur-texte);
   color: white;
+  box-shadow: var(--ombre-lg);
   z-index: 20;
+  animation: glissement-toast 0.2s ease;
+}
+
+.toast p {
+  margin: 0;
 }
 
 .toast--succes {
@@ -300,6 +409,13 @@ textarea {
 
 .toast button {
   background: transparent;
+  background-image: none;
   color: inherit;
+  box-shadow: none;
   padding: 0 0.25rem;
+}
+
+.toast button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: none;
 }
