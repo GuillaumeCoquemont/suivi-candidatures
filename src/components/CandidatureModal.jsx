@@ -26,8 +26,19 @@ function CandidatureModal({ candidature, onEnregistrer, onFermer }) {
     onEnregistrer(formulaire)
   }
 
+  function gererClicOverlay(evenement) {
+    if (evenement.target === evenement.currentTarget) {
+      onFermer()
+    }
+  }
+
   return (
-    <div className="candidature-modal" role="dialog" aria-modal="true">
+    <div
+      className="candidature-modal"
+      role="dialog"
+      aria-modal="true"
+      onClick={gererClicOverlay}
+    >
       <form onSubmit={gererSoumission}>
         <h2>{candidature ? 'Modifier la candidature' : 'Nouvelle candidature'}</h2>
 
