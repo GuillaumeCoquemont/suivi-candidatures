@@ -1,16 +1,38 @@
-# React + Vite
+# Suivi de Candidatures
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application React pour gérer et suivre ses candidatures en recherche d'emploi.
 
-Currently, two official plugins are available:
+## Fonctionnalités
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Ajouter, modifier et supprimer des candidatures
+- Statuts colorés (Non envoyé, Envoyé, En attente, Entretien, Réponse positive, Refus)
+- Alerte automatique pour les relances J+10
+- Recherche et filtre par statut
+- Tableau de bord avec statistiques en temps réel
+- Sauvegarde automatique dans le navigateur (localStorage)
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** + **Vite**
+- **ESLint** (SWC)
+- **localStorage** pour la persistance des données
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+git clone https://github.com/GuillaumeCoquemont/suivi-candidatures.git
+cd suivi-candidatures
+npm install
+npm run dev
+```
+
+L'application est disponible sur `http://localhost:5173`.
+
+## Utilisation
+
+Les données sont sauvegardées dans le navigateur via localStorage.
+Aucun backend, aucune donnée envoyée en ligne.
+
+## Licence
+
+Projet personnel — tous droits réservés.
